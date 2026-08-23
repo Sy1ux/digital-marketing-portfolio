@@ -1,19 +1,17 @@
-(function () {
-  const carousel = document.getElementById('evidence-carousel');
-  if (!carousel) return;
-
+function initCarousel(carousel, options) {
+  options = options || {};
   const track = carousel.querySelector('.carousel-track');
   const slides = Array.from(track.children);
   const prevBtn = carousel.querySelector('.carousel-btn.prev');
   const nextBtn = carousel.querySelector('.carousel-btn.next');
   const dotsWrap = carousel.querySelector('.carousel-dots');
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = lightbox.querySelector('.lightbox-img');
-  const lightboxClose = lightbox.querySelector('.lightbox-close');
+  const lightbox = options.enableZoom ? document.getElementById('lightbox') : null;
+  const lightboxImg = lightbox ? lightbox.querySelector('.lightbox-img') : null;
+  const lightboxClose = lightbox ? lightbox.querySelector('.lightbox-close') : null;
 
   let index = 0;
   let autoplayTimer = null;
-  const AUTOPLAY_MS = 4500;
+  const AUTOPLAY_MS = options.autoplayMs || 4500;
 
   slides.forEach((_, i) => {
     const dot = document.createElement('button');
@@ -46,31 +44,41 @@
   carousel.addEventListener('mouseenter', stopAutoplay);
   carousel.addEventListener('mouseleave', startAutoplay);
 
-  slides.forEach((slide) => {
-    const img = slide.querySelector('img');
-    if (!img) return;
-    img.addEventListener('click', () => {
-      lightboxImg.src = img.src;
-      lightboxImg.alt = img.alt;
-      lightbox.classList.add('open');
-      stopAutoplay();
+  if (options.enableZoom && lightbox) {
+    slides.forEach((slide) => {
+      const img = slide.querySelector('img');
+      if (!img) return;
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add('open');
+        stopAutoplay();
+      });
     });
-  });
 
-  function closeLightbox() {
-    lightbox.classList.remove('open');
-    lightboxImg.src = '';
-    startAutoplay();
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lightboxImg.src = '';
+      startAutoplay();
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+    });
   }
-
-  lightboxClose.addEventListener('click', closeLightbox);
-  lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) closeLightbox();
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
-  });
 
   goTo(0);
   startAutoplay();
+}
+
+(function () {
+  const evidenceCarousel = document.getElementById('evidence-carousel');
+  if (evidenceCarousel) initCarousel(evidenceCarousel, { enableZoom: true });
+
+  const logoCarousel = document.getElementById('logo-carousel');
+  if (logoCarousel) initCarousel(logoCarousel, { enableZoom: false, autoplayMs: 3000 });
 })();

@@ -252,6 +252,31 @@ section h2 {
   cursor: pointer;
 }
 
+/* Logo carousel */
+.logo-carousel {
+  max-width: 420px;
+  margin-top: 1rem;
+}
+
+.logo-slide {
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-badge {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text);
+  padding: 1.25rem 2rem;
+  background: #0b0d11;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  min-width: 180px;
+  text-align: center;
+}
+
 .note { color: var(--muted); font-size: 0.85rem; }
 
 footer {
