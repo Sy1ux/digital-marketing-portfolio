@@ -60,6 +60,31 @@ section h2 {
 .status-list { list-style: none; padding: 0; }
 .status-list li { padding: 0.25rem 0; color: var(--muted); }
 
+.method-list {
+  list-style: none;
+  padding: 0;
+  counter-reset: none;
+}
+
+.method-list li {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.method-list li strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--accent);
+}
+
+.method-list li p {
+  margin: 0;
+  color: var(--muted);
+}
+
 .tool-list { list-style: none; padding: 0; }
 .tool-list li {
   padding: 0.6rem 0.9rem;
