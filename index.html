@@ -85,21 +85,33 @@
 
   <section id="evidence">
     <h2>Evidence Library</h2>
-    <p>Supporting screenshots and archived references for the case studies above.</p>
-    <div class="evidence-grid">
-      <figure class="evidence-item">
-        <img src="assets/screenshots/shopify-monthly-overview.jpeg" alt="Shopify monthly sales overview: 179.33K euro sales, 4.33K orders">
-        <figcaption>Shopify — monthly overview (179.33K € / 4.33K orders)</figcaption>
-      </figure>
-      <figure class="evidence-item">
-        <img src="assets/screenshots/shopify-multi-store-revenue.jpeg" alt="Shopify multi-store revenue widgets">
-        <figcaption>Shopify — multi-store revenue snapshot</figcaption>
-      </figure>
-      <figure class="evidence-item">
-        <img src="assets/screenshots/ad-campaign-performance.jpeg" alt="Ad campaign performance data">
-        <figcaption>Ad campaign performance (spend / conversions)</figcaption>
-      </figure>
+    <p>Supporting screenshots and archived references for the case studies above. Click any image to zoom.</p>
+
+    <div class="carousel" id="evidence-carousel">
+      <div class="carousel-track">
+        <figure class="carousel-slide">
+          <img src="assets/screenshots/shopify-monthly-overview.jpeg" alt="Shopify monthly sales overview: 179.33K euro sales, 4.33K orders">
+          <figcaption>Shopify — monthly overview (179.33K € / 4.33K orders)</figcaption>
+        </figure>
+        <figure class="carousel-slide">
+          <img src="assets/screenshots/shopify-multi-store-revenue.jpeg" alt="Shopify multi-store revenue widgets">
+          <figcaption>Shopify — multi-store revenue snapshot</figcaption>
+        </figure>
+        <figure class="carousel-slide">
+          <img src="assets/screenshots/ad-campaign-performance.jpeg" alt="Ad campaign performance data">
+          <figcaption>Ad campaign performance (spend / conversions)</figcaption>
+        </figure>
+      </div>
+      <button class="carousel-btn prev" type="button" aria-label="Previous slide">&#8249;</button>
+      <button class="carousel-btn next" type="button" aria-label="Next slide">&#8250;</button>
+      <div class="carousel-dots"></div>
     </div>
+
+    <div class="lightbox" id="lightbox">
+      <button class="lightbox-close" type="button" aria-label="Close">&times;</button>
+      <img class="lightbox-img" src="" alt="">
+    </div>
+
     <p class="note">Figures shown are for portfolio purposes; sensitive account details are redacted.</p>
   </section>
 
@@ -128,4 +140,5 @@
 </footer>
 
 </body>
+<script src="assets/carousel.js"></script>
 </html>
