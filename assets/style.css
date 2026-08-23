@@ -254,7 +254,7 @@ section h2 {
 
 /* Logo carousel */
 .logo-carousel {
-  max-width: 420px;
+  width: 100%;
   margin-top: 1rem;
 }
 
@@ -266,15 +266,28 @@ section h2 {
 }
 
 .logo-badge {
-  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-size: 1.3rem;
   font-weight: 600;
   color: var(--text);
-  padding: 1.25rem 2rem;
+  padding: 1.25rem 2.5rem;
   background: #0b0d11;
   border: 1px solid var(--border);
   border-radius: 8px;
-  min-width: 180px;
-  text-align: center;
+  min-width: 220px;
+  justify-content: center;
+}
+
+.logo-badge img {
+  width: 40px;
+  height: 40px;
+  filter: brightness(0) invert(1);
+}
+
+.logo-badge-text {
+  min-height: 40px;
 }
 
 .note { color: var(--muted); font-size: 0.85rem; }
