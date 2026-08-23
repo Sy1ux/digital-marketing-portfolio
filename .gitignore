@@ -1,0 +1,6 @@
+# Private staging area for raw, unreviewed proof files — never publish as-is
+inbox/
+
+# OS
+.DS_Store
+Thumbs.db
