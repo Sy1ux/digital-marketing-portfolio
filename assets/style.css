@@ -70,6 +70,23 @@ section h2 {
 
 .case-study h3 { margin-top: 0; }
 
+.case-study-frame {
+  max-width: 320px;
+  height: auto;
+  margin: 0.75rem 0;
+  background: #0b0d11;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.case-study-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+  cursor: zoom-in;
+}
+
 .placeholder, .link-placeholder, .screenshot-placeholder {
   color: var(--muted);
   font-style: italic;
