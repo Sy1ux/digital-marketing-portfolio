@@ -78,7 +78,4 @@ function initCarousel(carousel, options) {
 (function () {
   const evidenceCarousel = document.getElementById('evidence-carousel');
   if (evidenceCarousel) initCarousel(evidenceCarousel, { enableZoom: true });
-
-  const logoCarousel = document.getElementById('logo-carousel');
-  if (logoCarousel) initCarousel(logoCarousel, { enableZoom: false, autoplayMs: 3000 });
 })();
