@@ -80,28 +80,56 @@ function initPortfolioLightbox() {
   if (!lightbox) return;
 
   const lightboxImg = lightbox.querySelector('.lightbox-img');
+  const lightboxVideo = lightbox.querySelector('.lightbox-video');
   const lightboxClose = lightbox.querySelector('.lightbox-close');
   const prevBtn = lightbox.querySelector('.lightbox-arrow.prev');
   const nextBtn = lightbox.querySelector('.lightbox-arrow.next');
   const captionEl = lightbox.querySelector('.lightbox-caption');
 
-  const images = [
-    { src: 'assets/screenshots/ad-campaign-performance.jpeg', alt: 'Meta Ads performance dashboard', title: 'Meta Ads' },
-    { src: 'assets/screenshots/zalvori-render.png', alt: 'Website homepage design', title: 'Website Branding/UI-UX' },
-    { src: 'assets/screenshots/thericy-product-page.jpg', alt: 'Product page design', title: 'Website Branding/UI-UX' }
-  ];
+  // Each tile has its own independent gallery — arrows never cross between tiles.
+  const galleries = {
+    tiktok: [
+      { src: 'assets/screenshots/tiktok-gmv-max-overview.jpeg', alt: 'TikTok Ads GMV Max campaign overview', title: 'TikTok Ads' },
+      { src: 'assets/screenshots/tiktok-shop-overview.jpeg', alt: 'TikTok Shop seller dashboard overview', title: 'TikTok Ads' },
+      { src: 'assets/screenshots/tiktok-shop-storefront.jpeg', alt: 'TikTok Shop storefront listing', title: 'TikTok Ads' },
+      { src: 'assets/screenshots/tiktok-campaign-analytics.jpeg', alt: 'TikTok Ads campaign analytics', title: 'TikTok Ads' },
+      { src: 'assets/screenshots/tiktok-cost-sku-orders.jpeg', alt: 'TikTok Ads cost and SKU orders performance', title: 'TikTok Ads' },
+      { type: 'video', src: 'assets/videos/tiktok-ad-creative.mp4', title: 'TikTok Ads' }
+    ],
+    meta: [
+      { src: 'assets/screenshots/ad-campaign-performance.jpeg', alt: 'Meta Ads performance dashboard', title: 'Meta Ads' }
+    ],
+    website: [
+      { src: 'assets/screenshots/zalvori-render.png', alt: 'Website homepage design', title: 'Website Branding/UI-UX' },
+      { src: 'assets/screenshots/thericy-product-page.jpg', alt: 'Product page design', title: 'Website Branding/UI-UX' }
+    ]
+  };
 
+  let currentTile = null;
   let currentIndex = 0;
 
   function show(i) {
-    currentIndex = (i + images.length) % images.length;
-    const item = images[currentIndex];
-    lightboxImg.src = item.src;
-    lightboxImg.alt = item.alt;
+    const items = galleries[currentTile];
+    currentIndex = (i + items.length) % items.length;
+    const item = items[currentIndex];
+    if (item.type === 'video') {
+      lightboxVideo.src = item.src;
+      lightboxVideo.style.display = 'block';
+      lightboxImg.style.display = 'none';
+      lightboxImg.src = '';
+    } else {
+      lightboxImg.src = item.src;
+      lightboxImg.alt = item.alt;
+      lightboxImg.style.display = 'block';
+      lightboxVideo.style.display = 'none';
+      lightboxVideo.pause();
+      lightboxVideo.src = '';
+    }
     captionEl.textContent = item.title;
   }
 
-  function open(i) {
+  function open(tile, i) {
+    currentTile = tile;
     show(i);
     lightbox.classList.add('open');
   }
@@ -109,10 +137,12 @@ function initPortfolioLightbox() {
   function close() {
     lightbox.classList.remove('open');
     lightboxImg.src = '';
+    lightboxVideo.pause();
+    lightboxVideo.src = '';
   }
 
   document.querySelectorAll('.portfolio-tile-frame img[data-gallery-index]').forEach((img) => {
-    img.addEventListener('click', () => open(parseInt(img.dataset.galleryIndex, 10)));
+    img.addEventListener('click', () => open(img.dataset.tile, parseInt(img.dataset.galleryIndex, 10)));
   });
 
   prevBtn.addEventListener('click', () => show(currentIndex - 1));

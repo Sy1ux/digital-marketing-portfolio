@@ -292,6 +292,14 @@ section h2 {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 
+.lightbox-video {
+  display: none;
+  max-width: 92vw;
+  max-height: 90vh;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
 .lightbox-close {
   position: absolute;
   top: 1rem;
