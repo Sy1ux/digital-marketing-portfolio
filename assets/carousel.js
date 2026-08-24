@@ -75,12 +75,7 @@ function initCarousel(carousel, options) {
   startAutoplay();
 }
 
-(function () {
-  const evidenceCarousel = document.getElementById('evidence-carousel');
-  if (evidenceCarousel) initCarousel(evidenceCarousel, { enableZoom: true });
-})();
-
-(function () {
+function initPortfolioLightbox() {
   const lightbox = document.getElementById('portfolio-lightbox');
   if (!lightbox) return;
 
@@ -132,4 +127,16 @@ function initCarousel(carousel, options) {
     if (e.key === 'ArrowLeft') show(currentIndex - 1);
     if (e.key === 'ArrowRight') show(currentIndex + 1);
   });
-})();
+}
+
+function initSite() {
+  const evidenceCarousel = document.getElementById('evidence-carousel');
+  if (evidenceCarousel) initCarousel(evidenceCarousel, { enableZoom: true });
+  initPortfolioLightbox();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initSite);
+} else {
+  initSite();
+}
