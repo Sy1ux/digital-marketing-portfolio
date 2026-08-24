@@ -1,10 +1,11 @@
 :root {
-  --bg: #0f1115;
-  --surface: #171a21;
-  --border: #2a2e37;
-  --text: #e7e9ee;
-  --muted: #9aa1ad;
-  --accent: #5eead4;
+  --bg: #1b1410;
+  --surface: #241b15;
+  --border: #3d2e22;
+  --text: #f5ece2;
+  --muted: #c2ab97;
+  --accent: #f2994a;
+  --well: #120c08;
 }
 
 * { box-sizing: border-box; }
@@ -17,31 +18,45 @@ body {
   line-height: 1.6;
 }
 
-.hero {
-  padding: 4rem 1.5rem 2rem;
-  text-align: center;
+.topbar {
   border-bottom: 1px solid var(--border);
+  padding: 1.25rem 1.5rem;
 }
 
-.hero h1 {
-  margin: 0 0 0.5rem;
-  font-size: 2.2rem;
+.topbar-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.75rem;
+  flex-wrap: wrap;
 }
 
-.hero p {
-  color: var(--muted);
-  max-width: 640px;
-  margin: 0 auto 1.5rem;
+.brand {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text);
 }
 
-.hero nav a {
+.topbar nav {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.topbar nav a {
   color: var(--accent);
   text-decoration: none;
-  margin: 0 0.75rem;
   font-size: 0.95rem;
 }
 
-.hero nav a:hover { text-decoration: underline; }
+.topbar nav a:hover { text-decoration: underline; }
+
+.intro-line {
+  color: var(--muted);
+  max-width: 640px;
+  margin: 0 0 1.5rem;
+}
 
 main {
   max-width: 860px;
@@ -99,7 +114,7 @@ section h2 {
   max-width: 320px;
   height: auto;
   margin: 0.75rem 0;
-  background: #0b0d11;
+  background: var(--well);
   border: 1px solid var(--border);
   border-radius: 8px;
   overflow: hidden;
@@ -172,7 +187,7 @@ section h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #0b0d11;
+  background: var(--well);
   border: 1px solid var(--border);
   border-radius: 8px;
   overflow: hidden;
@@ -298,7 +313,7 @@ section h2 {
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
-  background: #0b0d11;
+  background: var(--well);
   border: 1px solid var(--border);
   border-radius: 8px;
   width: 140px;
