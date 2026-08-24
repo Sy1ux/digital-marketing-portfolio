@@ -1,80 +1,3 @@
-function initCarousel(carousel, options) {
-  options = options || {};
-  const track = carousel.querySelector('.carousel-track');
-  const slides = Array.from(track.children);
-  const prevBtn = carousel.querySelector('.carousel-btn.prev');
-  const nextBtn = carousel.querySelector('.carousel-btn.next');
-  const dotsWrap = carousel.querySelector('.carousel-dots');
-  const lightbox = options.enableZoom ? document.getElementById('lightbox') : null;
-  const lightboxImg = lightbox ? lightbox.querySelector('.lightbox-img') : null;
-  const lightboxClose = lightbox ? lightbox.querySelector('.lightbox-close') : null;
-
-  let index = 0;
-  let autoplayTimer = null;
-  const AUTOPLAY_MS = options.autoplayMs || 4500;
-
-  slides.forEach((_, i) => {
-    const dot = document.createElement('button');
-    dot.className = 'dot' + (i === 0 ? ' active' : '');
-    dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-    dot.addEventListener('click', () => goTo(i));
-    dotsWrap.appendChild(dot);
-  });
-  const dots = Array.from(dotsWrap.children);
-
-  function goTo(i) {
-    index = (i + slides.length) % slides.length;
-    track.style.transform = 'translateX(-' + (index * 100) + '%)';
-    dots.forEach((d, di) => d.classList.toggle('active', di === index));
-  }
-
-  function next() { goTo(index + 1); }
-  function prev() { goTo(index - 1); }
-
-  function startAutoplay() {
-    stopAutoplay();
-    autoplayTimer = setInterval(next, AUTOPLAY_MS);
-  }
-  function stopAutoplay() {
-    if (autoplayTimer) clearInterval(autoplayTimer);
-  }
-
-  nextBtn.addEventListener('click', () => { next(); startAutoplay(); });
-  prevBtn.addEventListener('click', () => { prev(); startAutoplay(); });
-  carousel.addEventListener('mouseenter', stopAutoplay);
-  carousel.addEventListener('mouseleave', startAutoplay);
-
-  if (options.enableZoom && lightbox) {
-    slides.forEach((slide) => {
-      const img = slide.querySelector('img');
-      if (!img) return;
-      img.addEventListener('click', () => {
-        lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt;
-        lightbox.classList.add('open');
-        stopAutoplay();
-      });
-    });
-
-    function closeLightbox() {
-      lightbox.classList.remove('open');
-      lightboxImg.src = '';
-      startAutoplay();
-    }
-
-    lightboxClose.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) closeLightbox();
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
-    });
-  }
-
-  goTo(0);
-  startAutoplay();
-}
-
 function initPortfolioLightbox() {
   const lightbox = document.getElementById('portfolio-lightbox');
   if (!lightbox) return;
@@ -88,20 +11,28 @@ function initPortfolioLightbox() {
 
   // Each tile has its own independent gallery — arrows never cross between tiles.
   const galleries = {
-    tiktok: [
-      { src: 'assets/screenshots/tiktok-gmv-max-overview.jpeg', alt: 'TikTok Ads GMV Max campaign overview', title: 'TikTok Ads' },
-      { src: 'assets/screenshots/tiktok-shop-overview.jpeg', alt: 'TikTok Shop seller dashboard overview', title: 'TikTok Ads' },
-      { src: 'assets/screenshots/tiktok-shop-storefront.jpeg', alt: 'TikTok Shop storefront listing', title: 'TikTok Ads' },
-      { src: 'assets/screenshots/tiktok-campaign-analytics.jpeg', alt: 'TikTok Ads campaign analytics', title: 'TikTok Ads' },
-      { src: 'assets/screenshots/tiktok-cost-sku-orders.jpeg', alt: 'TikTok Ads cost and SKU orders performance', title: 'TikTok Ads' },
-      { type: 'video', src: 'assets/videos/tiktok-ad-creative.mp4', title: 'TikTok Ads' }
+    campaigns: [
+      { src: 'assets/screenshots/tiktok-gmv-max-overview.jpeg', alt: 'TikTok Ads GMV Max campaign overview', title: 'Ad Campaigns — TikTok (Asian market)' },
+      { src: 'assets/screenshots/tiktok-campaign-analytics.jpeg', alt: 'TikTok Ads campaign analytics', title: 'Ad Campaigns — TikTok (Asian market)' },
+      { src: 'assets/screenshots/tiktok-cost-sku-orders.jpeg', alt: 'TikTok Ads cost and SKU orders performance', title: 'Ad Campaigns — TikTok (Asian market)' },
+      { src: 'assets/screenshots/ad-campaign-performance.jpeg', alt: 'Meta Ads performance dashboard', title: 'Ad Campaigns — Meta' },
+      { src: 'assets/screenshots/meta-campaign-ctr-1.jpeg', alt: 'Meta Ads campaign report with CTR and retention metrics', title: 'Ad Campaigns — Meta (CTR & retention)' },
+      { src: 'assets/screenshots/meta-campaign-ctr-2.jpeg', alt: 'Meta Ads campaign report with CTR and retention metrics', title: 'Ad Campaigns — Meta (CTR & retention)' }
     ],
-    meta: [
-      { src: 'assets/screenshots/ad-campaign-performance.jpeg', alt: 'Meta Ads performance dashboard', title: 'Meta Ads' }
+    content: [
+      { src: 'assets/screenshots/tiktok-shop-storefront.jpeg', alt: 'TikTok Shop storefront listing', title: 'Content Generation — TikTok Shop (Asian market)' },
+      { src: 'assets/screenshots/thericy-product-page.jpg', alt: 'Product page design', title: 'Content Generation — Product page design' },
+      { src: 'assets/screenshots/zalvori-render.png', alt: 'Website homepage design', title: 'Content Generation — Website homepage design' },
+      { type: 'video', src: 'assets/videos/tiktok-ad-creative.mp4', title: 'Content Generation — TikTok ad creative (Asian market)' }
     ],
-    website: [
-      { src: 'assets/screenshots/zalvori-render.png', alt: 'Website homepage design', title: 'Website Branding/UI-UX' },
-      { src: 'assets/screenshots/thericy-product-page.jpg', alt: 'Product page design', title: 'Website Branding/UI-UX' }
+    revenue: [
+      { src: 'assets/screenshots/shopify-monthly-overview.jpeg', alt: 'Shopify monthly sales overview: 179.33K euro sales, 4.33K orders', title: 'Revenue — Monthly overview (179.33K € / 4.33K orders)' },
+      { src: 'assets/screenshots/shopify-daily-bars-month.jpeg', alt: 'Shopify sales by day of month: 208.14K euro, 5.09K orders', title: 'Revenue — Daily sales pattern, full month (208.14K €)' },
+      { src: 'assets/screenshots/shopify-daily-bars-today-1.jpeg', alt: 'Shopify hourly sales bar chart: 5.17K euro today', title: 'Revenue — Daily sales pattern, today (5.17K €)' },
+      { src: 'assets/screenshots/shopify-daily-bars-today-2.jpeg', alt: 'Shopify hourly sales bar chart: 8.28K euro today', title: 'Revenue — Daily sales pattern, today (8.28K €)' },
+      { src: 'assets/screenshots/shopify-daily-bars-yesterday.jpeg', alt: 'Shopify hourly sales bar chart: 6.52K euro yesterday', title: 'Revenue — Daily sales pattern, yesterday (6.52K €)' },
+      { src: 'assets/screenshots/shopify-multi-store-revenue.jpeg', alt: 'Shopify multi-store revenue widgets', title: 'Revenue — Multi-store snapshot' },
+      { src: 'assets/screenshots/tiktok-shop-overview.jpeg', alt: 'TikTok Shop seller dashboard GMV overview', title: 'Revenue — TikTok Shop GMV overview (Asian market)' }
     ]
   };
 
@@ -160,8 +91,6 @@ function initPortfolioLightbox() {
 }
 
 function initSite() {
-  const evidenceCarousel = document.getElementById('evidence-carousel');
-  if (evidenceCarousel) initCarousel(evidenceCarousel, { enableZoom: true });
   initPortfolioLightbox();
 }
 
