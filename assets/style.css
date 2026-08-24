@@ -100,31 +100,51 @@ section h2 {
   color: var(--muted);
 }
 
-.case-study {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1.25rem 1.5rem;
-  margin-bottom: 1.25rem;
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
 }
 
-.case-study h3 { margin-top: 0; }
+@media (max-width: 700px) {
+  .portfolio-grid { grid-template-columns: 1fr; }
+}
 
-.case-study-frame {
-  max-width: 320px;
-  height: auto;
-  margin: 0.75rem 0;
+.portfolio-tile {
+  display: block;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.portfolio-tile-frame {
+  aspect-ratio: 1 / 1;
+  width: 100%;
   background: var(--well);
   border: 1px solid var(--border);
   border-radius: 8px;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.case-study-frame img {
+.portfolio-tile-frame img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   display: block;
-  cursor: zoom-in;
+}
+
+.portfolio-tile-frame.placeholder-frame {
+  border-style: dashed;
+  padding: 1rem;
+  text-align: center;
+}
+
+.portfolio-tile h3 {
+  margin: 0.9rem 0 0;
+  font-size: 1.25rem;
+  text-align: center;
 }
 
 .placeholder, .link-placeholder, .screenshot-placeholder {
