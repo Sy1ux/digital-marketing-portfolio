@@ -148,6 +148,11 @@ section h2 {
   text-align: center;
 }
 
+.portfolio-tile .note {
+  text-align: center;
+  margin: 0.35rem 0 0;
+}
+
 .placeholder, .link-placeholder, .screenshot-placeholder {
   color: var(--muted);
   font-style: italic;
