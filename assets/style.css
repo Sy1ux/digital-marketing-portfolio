@@ -133,6 +133,7 @@ section h2 {
   height: 100%;
   object-fit: cover;
   display: block;
+  cursor: zoom-in;
 }
 
 .portfolio-tile-frame.placeholder-frame {
@@ -301,6 +302,43 @@ section h2 {
   font-size: 2.2rem;
   line-height: 1;
   cursor: pointer;
+}
+
+/* Portfolio lightbox: blurred backdrop + horizontal arrow navigation */
+.portfolio-lightbox {
+  background: rgba(20, 14, 10, 0.65);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.lightbox-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-arrow:hover { background: rgba(0, 0, 0, 0.8); }
+.lightbox-arrow.prev { left: 1rem; }
+.lightbox-arrow.next { right: 1rem; }
+
+.lightbox-caption {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin: 0;
 }
 
 /* Logo marquee */

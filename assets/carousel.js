@@ -79,3 +79,57 @@ function initCarousel(carousel, options) {
   const evidenceCarousel = document.getElementById('evidence-carousel');
   if (evidenceCarousel) initCarousel(evidenceCarousel, { enableZoom: true });
 })();
+
+(function () {
+  const lightbox = document.getElementById('portfolio-lightbox');
+  if (!lightbox) return;
+
+  const lightboxImg = lightbox.querySelector('.lightbox-img');
+  const lightboxClose = lightbox.querySelector('.lightbox-close');
+  const prevBtn = lightbox.querySelector('.lightbox-arrow.prev');
+  const nextBtn = lightbox.querySelector('.lightbox-arrow.next');
+  const captionEl = lightbox.querySelector('.lightbox-caption');
+
+  const images = [
+    { src: 'assets/screenshots/ad-campaign-performance.jpeg', alt: 'Meta Ads performance dashboard', title: 'Meta Ads' },
+    { src: 'assets/screenshots/zalvori-render.png', alt: 'Website homepage design', title: 'Website Branding/UI-UX' },
+    { src: 'assets/screenshots/thericy-product-page.jpg', alt: 'Product page design', title: 'Website Branding/UI-UX' }
+  ];
+
+  let currentIndex = 0;
+
+  function show(i) {
+    currentIndex = (i + images.length) % images.length;
+    const item = images[currentIndex];
+    lightboxImg.src = item.src;
+    lightboxImg.alt = item.alt;
+    captionEl.textContent = item.title;
+  }
+
+  function open(i) {
+    show(i);
+    lightbox.classList.add('open');
+  }
+
+  function close() {
+    lightbox.classList.remove('open');
+    lightboxImg.src = '';
+  }
+
+  document.querySelectorAll('.portfolio-tile-frame img[data-gallery-index]').forEach((img) => {
+    img.addEventListener('click', () => open(parseInt(img.dataset.galleryIndex, 10)));
+  });
+
+  prevBtn.addEventListener('click', () => show(currentIndex - 1));
+  nextBtn.addEventListener('click', () => show(currentIndex + 1));
+  lightboxClose.addEventListener('click', close);
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) close();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') show(currentIndex - 1);
+    if (e.key === 'ArrowRight') show(currentIndex + 1);
+  });
+})();
